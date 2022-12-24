@@ -1,5 +1,7 @@
 package com.practice.order.domain.partner;
 
+import antlr.Token;
+import com.practice.order.common.util.TokenGenerator;
 import com.practice.order.domain.AbstractEntity;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,6 +25,7 @@ import java.time.ZonedDateTime;
 @NoArgsConstructor
 @Table(name = "partners")
 public class Partner extends AbstractEntity {
+    private static final String PREFIX_PARTNER = "ptn_";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,7 +44,7 @@ public class Partner extends AbstractEntity {
         if(StringUtils.isEmpty(businessNo)) throw new RuntimeException("empty businessNo");
         if(StringUtils.isEmpty(email)) throw new RuntimeException("empty email");
 
-        this.partnerToken = "abcde";
+        this.partnerToken = TokenGenerator.randomCharacterWithPrefix(PREFIX_PARTNER);
         this.partnerName = partnerName;
         this.businessNo = businessNo;
         this.email = email;
