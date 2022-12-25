@@ -22,22 +22,9 @@ public class PartnerApiController {
         // 2. facade 호출 .. PartnerInfo
         // 3. PartnerInfo -> CommonResponse convert AND return
 
-        var command = PartnerCommand.builder()
-                .partnerName(request.getPartnerName())
-                .businessNo(request.getBusinessNo())
-                .email(request.getEmail())
-                .build();
-
+        var command = request.toCommand();
         var partnerInfo = partnerFacade.registerPartner(command);
-
-        var response = PartnerDto.RegisterResponse.builder()
-                .partnerToken()
-                .partnerName()
-                .businessNo()
-                .email()
-                .status()
-                .build();
-
+        var response = new PartnerDto.RegisterResponse(partnerInfo);
         return CommonResponse.success(response);
     }
 }
